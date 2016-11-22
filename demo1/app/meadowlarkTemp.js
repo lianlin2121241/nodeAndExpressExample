@@ -1,6 +1,8 @@
 var express=require("express")
 var app=express()
 
+var fortunes=require("./lib/fortune.js");
+
 //加载handlebars引擎
 var handlebars=require("express3-handlebars")
 	.create({defaultLayout:"main"})
@@ -14,22 +16,12 @@ app.use(express.static(__dirname+"/public"));
 //设置端口
 app.set('port',process.env.PORT||3000)
 
-//设置随机数组
-var fortunes=[
-	"Conquer your fears or they will conquer you.",
-	"Rivers need springs.",
-	"Do not fear what you don`t know",
-	"You will have a pleasant surprise",
-	"Whenever Possible,keep it simple"
-]
-
 app.get("/",function(req,res){
 	res.render("home");
 })
 
 app.get("/about",function(req,res){
-	var randomForune=fortunes[Math.floor(Math.random()*fortunes.length)];
-	res.render("about",{fortune:randomForune});
+	res.render("about",{fortune:fortunes.getFortune()});
 })
 
 //设置404状态
