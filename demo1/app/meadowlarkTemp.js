@@ -24,6 +24,10 @@ app.get("/about",function(req,res){
 	res.render("about",{fortune:fortunes.getFortune()});
 })
 
+app.get("/getTable",function(req,res){
+	res.json({"aa":"bb"})
+})
+
 //设置404状态
 app.use(function(req,res){
 	res.status(404);
